@@ -1,0 +1,170 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title> Magic Calculator🔥</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(270deg, #ff0080, #ff8c00, #40e0d0, #8a2be2, #ff0080);
+      background-size: 1200% 1200%;
+      animation: rainbowBG 15s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      color: white;
+      flex-direction: column;
+    }@keyframes rainbowBG {
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.calculator {
+  background: rgba(0, 0, 0, 0.85);
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
+  width: 340px;
+}
+
+#display {
+  width: 100%;
+  height: 60px;
+  font-size: 26px;
+  text-align: right;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background-color: #000;
+  color: white;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 20px;
+}
+
+button {
+  font-size: 18px;
+  padding: 20px;
+  border-radius: 12px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  background: black;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+button:hover {
+  background: linear-gradient(120deg, #ff0080, #ff8c00, #40e0d0, #8a2be2);
+  background-size: 300% 300%;
+  animation: btnRainbow 6s linear infinite;
+  font-weight: bold;
+}
+
+.buttons:hover button {
+  filter: blur(1.5px);
+  opacity: 0.5;
+}
+
+.buttons button:hover {
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+.equal {
+  grid-column: span 2;
+  background-color: #00b894;
+}
+
+.equal:hover {
+  background: linear-gradient(120deg, #ff0080, #ff8c00, #40e0d0, #8a2be2);
+  background-size: 300% 300%;
+  animation: btnRainbow 6s linear infinite;
+}
+
+@keyframes btnRainbow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+  </style>
+</head>
+<body>
+  <h1>CALCULATOR 👑</h1>
+  <div class="calculator">
+    <input type="text" id="display" readonly />
+    <div class="buttons">
+      <button onclick="clearDisplay()">AC</button>
+      <button onclick="deleteLast()">DEL</button>
+      <button onclick="append('%')">%</button>
+      <button onclick="append('/')">/</button>
+      <button onclick="append('7')">7</button>
+      <button onclick="append('8')">8</button>
+      <button onclick="append('9')">9</button>
+      <button onclick="append('')"></button><button onclick="append('4')">4</button>
+  <button onclick="append('5')">5</button>
+  <button onclick="append('6')">6</button>
+  <button onclick="append('+')">+</button>
+
+  <button onclick="append('1')">1</button>
+  <button onclick="append('2')">2</button>
+  <button onclick="append('3')">3</button>
+  <button onclick="append('-')">-</button>
+
+  <button onclick="append('.')">.</button>
+  <button onclick="append('0')">0</button>
+  <button class="equal" onclick="calculate()">=</button>
+</div>
+
+  </div>  <script>
+    const display = document.getElementById('display');
+
+    function append(value) {
+      display.value += value;
+    }
+
+    function clearDisplay() {
+      display.value = '';
+    }
+
+    function deleteLast() {
+      display.value = display.value.slice(0, -1);
+    }
+
+    function calculate() {
+      try {
+        display.value = eval(display.value);
+      } catch {
+        display.value = 'Error';
+      }
+    }
+
+    document.addEventListener("keydown", function (event) {
+      const key = event.key;
+      if (/[0-9+\-*/.%]/.test(key)) {
+        append(key);
+      } else if (key === "Enter") {
+        event.preventDefault();
+        calculate();
+      } else if (key === "Backspace") {
+        deleteLast();
+      } else if (key === "Escape") {
+        clearDisplay();
+      }
+    });
+  </script></body>
+</html>
